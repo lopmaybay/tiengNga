@@ -717,22 +717,12 @@
                 aiTextContentDiv.innerHTML = '';
                 aiGenerateCustomButton.disabled = true;
                 try {
-                    const prompt = `Cho từ tiếng Nga "${word}", hãy tạo ra: 8 câu ví dụ sử dụng từ này và 10 từ có cùng chủ đề với từ này. Kết quả trả về có nghĩa ngắn gọn bằng tiếng Việt. Trả về kết quả dưới dạng JSON theo cấu trúc sau: {"sentences": ["câu 1", ...], "related_words": [{"word": "từ 1 có trọng âm", "meaning": "nghĩa tiếng Việt 1"}, ...]}`;
+                    const prompt = `Cho từ tiếng Nga "${word}", hãy tạo ra: 4 câu ví dụ sử dụng từ này và 8 từ có cùng chủ đề với từ này kèm theo nghĩa tiếng Việt. Trả về kết quả dưới dạng JSON theo cấu trúc sau: {"sentences": ["câu 1", ...], "related_words": ["từ 1", ...]}`;
                     const schema = {
                         type: "OBJECT",
                         properties: {
                             "sentences": { "type": "ARRAY", "items": { "type": "STRING" } },
-                            "related_words": {
-                                "type": "ARRAY",
-                                "items": {
-                                    "type": "OBJECT",
-                                    "properties": {
-                                        "word": { "type": "STRING" },
-                                        "meaning": { "type": "STRING" }
-                                    },
-                                    "required": ["word", "meaning"]
-                                }
-                            }
+                            "related_words": { "type": "ARRAY", "items": { "type": "STRING" } },
                         }
                     };
                     const jsonString = await callAI(prompt, "application/json", schema);
