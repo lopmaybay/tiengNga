@@ -740,7 +740,7 @@
                     
                     htmlContent += '</ul><h4 class="text-lg font-semibold mt-4 mb-2">Từ liên quan:</h4><ul class="list-disc list-inside space-y-1">';
                     if (relatedWords.length > 0) {
-                        relatedWords.forEach(relWord => { htmlContent += `<li><strong>${relWord.word}</strong>: ${relWord.meaning}</li>`; });
+                        relatedWords.forEach(relWord => { htmlContent += `<li>${relWord.word}</li>`; });
                     } else {
                         htmlContent += '<li>Không có từ liên quan nào được tạo.</li>';
                     }
