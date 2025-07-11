@@ -717,12 +717,22 @@
                 aiTextContentDiv.innerHTML = '';
                 aiGenerateCustomButton.disabled = true;
                 try {
-                    const prompt = `Cho từ tiếng Nga "${word}", hãy tạo ra: 4 câu ví dụ sử dụng từ này và 8 từ có cùng chủ đề với từ này kèm theo nghĩa tiếng Việt. Trả về kết quả dưới dạng JSON theo cấu trúc sau: {"sentences": ["câu 1", ...], "related_words": ["từ 1", ...]}`;
+                    const prompt = `Với từ tiếng Nga "${word}", hãy tạo một đối tượng JSON. Đối tượng này phải chứa hai thuộc tính: "sentences" và "related_words". "sentences" là một mảng chuỗi gồm 10 câu ví dụ. "related_words" là một mảng gồm 20 đối tượng, mỗi đối tượng có thuộc tính "word" (từ tiếng Nga có trọng âm) và "meaning" (nghĩa tiếng Việt).`;
                     const schema = {
                         type: "OBJECT",
                         properties: {
                             "sentences": { "type": "ARRAY", "items": { "type": "STRING" } },
-                            "related_words": { "type": "ARRAY", "items": { "type": "STRING" } },
+                            "related_words": {
+                                "type": "ARRAY",
+                                "items": {
+                                    "type": "OBJECT",
+                                    "properties": {
+                                        "word": { "type": "STRING" },
+                                        "meaning": { "type": "STRING" }
+                                    },
+                                    "required": ["word", "meaning"]
+                                }
+                            }
                         }
                     };
                     const jsonString = await callAI(prompt, "application/json", schema);
@@ -740,7 +750,7 @@
                     
                     htmlContent += '</ul><h4 class="text-lg font-semibold mt-4 mb-2">Từ liên quan:</h4><ul class="list-disc list-inside space-y-1">';
                     if (relatedWords.length > 0) {
-                        relatedWords.forEach(relWord => { htmlContent += `<li>${relWord.word}</li>`; });
+                        relatedWords.forEach(relWord => { htmlContent += `<li><strong>${relWord.word}</strong>: ${relWord.meaning}</li>`; });
                     } else {
                         htmlContent += '<li>Không có từ liên quan nào được tạo.</li>';
                     }
