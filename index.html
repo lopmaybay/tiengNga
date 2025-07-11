@@ -717,7 +717,7 @@
                 aiTextContentDiv.innerHTML = '';
                 aiGenerateCustomButton.disabled = true;
                 try {
-                    const prompt = `Cho từ tiếng Nga "${word}", hãy tạo ra: 8 câu ví dụ sử dụng từ này. và 10 từ liên quan với từ này. Kết quả trả về có nghĩa ngắn gọn bằng tiếng Việt. Trả về kết quả dưới dạng JSON theo cấu trúc sau: {"sentences": ["câu 1", ...], "related_words": [{"word": "từ 1 có trọng âm", "meaning": "nghĩa tiếng Việt 1"}, ...]}`;
+                    const prompt = `Cho từ tiếng Nga "${word}", hãy tạo ra: 8 câu ví dụ sử dụng từ này và 10 từ có cùng chủ đề với từ này. Kết quả trả về có nghĩa ngắn gọn bằng tiếng Việt. Trả về kết quả dưới dạng JSON theo cấu trúc sau: {"sentences": ["câu 1", ...], "related_words": [{"word": "từ 1 có trọng âm", "meaning": "nghĩa tiếng Việt 1"}, ...]}`;
                     const schema = {
                         type: "OBJECT",
                         properties: {
